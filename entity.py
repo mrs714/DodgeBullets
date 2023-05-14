@@ -1,15 +1,17 @@
 from vec import Vec
-from entitityType import EntityType
 
 class Entity:
 
-    def __init__(self, pos, type):
+    id_counter = -1
+
+    def __init__(self, pos):
+        self.id = self.generateId()
         self.pos = pos
         self.dir = Vec(0, 0)
-        self.type = type
     
-    def move(self, dir):
-        pass
+    def generateId(self):
+        id_counter += 1
+        return id_counter
 
-    def nearEntities(self, radius):
-        pass
+    def __eq__(self, other):
+        return self.id == other.id
