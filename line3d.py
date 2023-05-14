@@ -12,3 +12,6 @@ class Line3d:
     
     def intersects(self, other, radius):
         return self.distance(other) <= radius
+    
+    def __str__(self):
+        return "point: " + str(self.point) + " vector: " + str(self.vector)

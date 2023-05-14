@@ -1,4 +1,5 @@
 from vec import Vec
+from consts import *
 
 class Entity:
 
@@ -10,8 +11,12 @@ class Entity:
         self.dir = Vec(0, 0)
     
     def generateId(self):
-        id_counter += 1
-        return id_counter
+        Entity.id_counter += 1
+        return Entity.id_counter
 
     def __eq__(self, other):
         return self.id == other.id
+    
+    def move(self, speed):
+        self.dir.normalize()
+        self.pos += self.dir * (speed / ticksPS)

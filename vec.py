@@ -1,6 +1,7 @@
 from math import sqrt
 import numpy as np
 from math import sin, cos
+from consts import *
 
 class Vec:
     
@@ -15,6 +16,9 @@ class Vec:
     def __sub__(self, other):
         return Vec(self.x - other.x, self.y - other.y, self.z - other.z)
     
+    def __mul__(self, val):
+        return Vec(self.x*val, self.y*val, self.z*val)
+    
     def dotProduct(self, other):
         return self.x*other.x + self.y*other.y + self.z*other.z
     
@@ -26,6 +30,8 @@ class Vec:
     
     def normalize(self):
         norm = sqrt(self.x**2 + self.y**2 + self.z**2)
+        if norm == 0:
+            return
         self.x /= norm
         self.y /= norm
         self.z /= norm
@@ -41,3 +47,11 @@ class Vec:
     
     def rotation2d(self, angle):
         return Vec(self.x*cos(angle) - self.y*sin(angle), self.x*sin(angle) + self.y*cos(angle), self.z)
+    
+    def outside(self, radius):
+        return self.x < radius or self.x > map_size - radius or self.y < radius or self.y > map_size - radius
+    
+    def __str__(self):
+        return "x: " + str(self.x) + " y: " + str(self.y) + " z: " + str(self.z)
+    
+    
