@@ -32,14 +32,13 @@ pygame.display.set_caption("The game")
 
 clock = pygame.time.Clock()
 
-def dir_center(player):
-    return Vec(map_size/2, map_size/2) - player.pos - Vec(1, 11)
+dirs = [Vec(1, 0), Vec(1, 1), Vec(0, 1), Vec(-1, 1), Vec(-1, 0), Vec(-1, -1), Vec(0, -1), Vec(1, -1)]
 
 def update():
     for player in players.values():
         player.move(player_speed)
         if player.id == id_main_player:
-            player.dir = tryMove(player, dir_center(player), bullets)
+            player.dir = tryMove(player, dirs[2*(int(tickCounter/100)%4)], bullets)
         else:
             shootPlayer(player, id_main_player, players, bullets, tickCounter)
     

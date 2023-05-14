@@ -5,11 +5,13 @@ from math import pi, radians as rad
 
 def calcCost(player, tryLine, near, lines):
     cost = 0
-    len_no = 0
+    len_si = 0
     for i, line in enumerate(lines):
         dist = tryLine.distance(line)
-        if dist < player_radius*2:
-            cost += (playerViewRadius - player.pos.distance(near[i].pos))**2
+        if dist < player_radius*2 + bullet_radius:
+            cost -= player.pos.distance(line.intersection(tryLine))
+            len_si += 1
+    print(f"{len_si}({cost})", end=" ")
     return cost
 
 def tryAngle(player, dir, angle, costs, near, lines):
@@ -29,7 +31,8 @@ def tryAngle(player, dir, angle, costs, near, lines):
 
 def tryMove(player, dir, bList):
     
-    near = player.nearBullets(playerViewRadius, bList)
+    near = player.nearBullets(playerViewRadius, bList) 
+    near = [b for b in near if player.mayCollide(b, player_radius)]
     lines = []
 
     #lines creation
@@ -46,14 +49,16 @@ def tryMove(player, dir, bList):
         angle = rad(a)
         ret = tryAngle(player, dir, angle, costs, near, lines)
         if ret != None:
+            print("ez")
             return ret
-    
+
     #middle
     tryDir = Vec(0, 0, 1)
     tryLine = Line3d(player.pos, tryDir)
     costNoMove = calcCost(player, tryLine, near, lines)
     if costNoMove == 0:
         tryDir.z = 0
+        print("ez")
         return tryDir
     
     #second part
@@ -61,7 +66,9 @@ def tryMove(player, dir, bList):
         angle = rad(a)
         ret = tryAngle(player, dir, angle, costs, near, lines)
         if ret != None:
+            print("ez")
             return ret
+    
     
     costs.append((costNoMove, Vec(0, 0)))
 
@@ -70,7 +77,7 @@ def tryMove(player, dir, bList):
         if c < minCost:
             minCost = c
             minDir = d
-
+    print("not ez: ", minCost)
     minDir.z = 0
     return minDir
 

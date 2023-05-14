@@ -18,7 +18,7 @@ class Player(Entity):
     
     def nearBullets(self, radius, bList):
         retList = []
-        for ent in bList.values():
-            if self.pos.distance(ent.pos) <= radius:
-                retList.append(ent)
+        for b in bList.values():
+            if self.pos.distance(b.pos) <= radius:
+                retList.append(b)
         return retList
