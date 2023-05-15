@@ -1,6 +1,7 @@
 from vec import Vec
 from numpy import array, cross
 from numpy.linalg import solve, norm
+from math import sqrt
 
 
 
@@ -13,6 +14,26 @@ class Line3d:
     def distance(self, other):
         crossProduct = self.vector.crossProduct3d(other.vector)
         return abs((other.point - self.point).dotProduct(crossProduct)/crossProduct.mod())
+    
+    def closestAltitude(self, other):
+
+        p1, p2, p3 = self.point.x, self.point.y, self.point.z
+        q1, q2, q3 = other.point.x, other.point.y, other.point.z
+        v1, v2, v3 = self.vector.x, self.vector.y, self.vector.z
+        u1, u2, u3 = other.vector.x, other.vector.y, other.vector.z
+
+        return (2*(u1/u3 - v1/v3)*(p1 - q1 + (q3*u1)/u3 - (p3*v1)/v3) + 2*(u2/u3 - v2/v3)*(p2 - q2 + (q3*u2)/u3 - (p3*v2)/v3))/(2*(u1/u3 - v1/v3)**2 + 2*(u2/u3 - v2/v3)**2)
+    
+    def horizontalDistance(self, other, k = None):
+
+        if k == None:
+            k = self.closestAltitude(other)
+        p1, p2, p3 = self.point.x, self.point.y, self.point.z
+        q1, q2, q3 = other.point.x, other.point.y, other.point.z
+        v1, v2, v3 = self.vector.x, self.vector.y, self.vector.z
+        u1, u2, u3 = other.vector.x, other.vector.y, other.vector.z
+
+        return sqrt((p1+(v1/v3)*(k-p3)-q1-(u1/u3)*(k-q3))**2+(p2+(v2/v3)*(k-p3)-q2-(u2/u3)*(k-q3))**2)
     
     def intersects(self, other, radius):
         return self.distance(other) <= radius

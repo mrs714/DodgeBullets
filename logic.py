@@ -5,13 +5,11 @@ from math import pi, radians as rad
 
 def calcCost(player, tryLine, near, lines):
     cost = 0
-    len_si = 0
     for i, line in enumerate(lines):
-        dist = tryLine.distance(line)
-        if dist < player_radius*2 + bullet_radius:
-            cost -= player.pos.distance(line.intersection(tryLine))
-            len_si += 1
-    print(f"{len_si}({cost})", end=" ")
+        alti = tryLine.closestAltitude(line)
+        dist = tryLine.horizontalDistance(line, alti)      
+        if dist < player_radius + bullet_radius+5:
+            cost -= alti
     return cost
 
 def tryAngle(player, dir, angle, costs, near, lines):
@@ -21,7 +19,7 @@ def tryAngle(player, dir, angle, costs, near, lines):
         if (player.pos + (tryDir*(player_speed/ticksPS))).outside(player_radius):
             continue
 
-        tryDir.z = 100000/player_speed
+        tryDir.z = 1/player_speed
         tryLine = Line3d(player.pos, tryDir)
         cost = calcCost(player, tryLine, near, lines)
         if cost == 0:
@@ -32,14 +30,14 @@ def tryAngle(player, dir, angle, costs, near, lines):
 def tryMove(player, dir, bList):
     
     near = player.nearBullets(playerViewRadius, bList) 
-    near = [b for b in near if player.mayCollide(b, player_radius)]
+    near = [b for b in near if player.mayCollide(b, 0)]
     lines = []
 
     #lines creation
     for ent in near:
         lineDirection = Vec(ent.pos.x, ent.pos.y)
         lineDirection.normalize()
-        lineDirection.z = 100000/bullet_speed
+        lineDirection.z = 1/bullet_speed
         lines.append(Line3d(ent.pos, lineDirection))
     
     costs = []

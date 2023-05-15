@@ -9,4 +9,4 @@ bullet_radius = 2 # px
 shootCooldown = 25 # ticks
 
 circular_step = 3 # number of angles to use when trying to find a free spot
-playerViewRadius = 170 # px
+playerViewRadius = 200 # px
