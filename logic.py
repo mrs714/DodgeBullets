@@ -7,9 +7,10 @@ def calcCost(player, tryLine, near, lines):
     cost = 0
     for i, line in enumerate(lines):
         alti = tryLine.closestAltitude(line)
-        dist = tryLine.horizontalDistance(line, alti)      
-        if dist < player_radius + bullet_radius+5:
-            cost -= alti
+        if alti > 0:
+            dist = tryLine.horizontalDistance(line, alti)      
+            if dist < player_radius + bullet_radius+7:
+                cost -= alti
     return cost
 
 def tryAngle(player, dir, angle, costs, near, lines):
@@ -30,7 +31,7 @@ def tryAngle(player, dir, angle, costs, near, lines):
 def tryMove(player, dir, bList):
     
     near = player.nearBullets(playerViewRadius, bList) 
-    near = [b for b in near if player.mayCollide(b, 0)]
+    #near = [b for b in near if player.mayCollide(b, 0)]
     lines = []
 
     #lines creation
