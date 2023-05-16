@@ -55,6 +55,12 @@ def update():
         bullet.move(bullet_speed)
     for id in delids:
         del bullets[id]
+
+    #check for collissions
+    for player in players.values():
+        for bullet in bullet.values():
+            if player.pos.dist(bullet.pos) < player_radius + bullet_radius:
+                print("collision")
     
 def draw():
     update()
