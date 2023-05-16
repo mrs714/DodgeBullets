@@ -6,6 +6,7 @@ from logic import tryMove, shootPlayer
 from vec import Vec
 
 tickCounter = 0
+collisions = 0
 
 bullets = {}
 players = {}
@@ -56,12 +57,13 @@ def update():
     for id in delids:
         del bullets[id]
 
-    #check for collissions
-    for player in players.values():
-        for bullet in bullet.values():
-            if player.pos.dist(bullet.pos) < player_radius + bullet_radius:
+    #check for collisions
+    for bullet in bullets.values():
+        for player in players.values():
+            if player.pos.distance(bullet.pos) < player_radius:
+                collisions += 1
                 print("collision")
-                afadsf
+                
     
 def draw():
     update()
