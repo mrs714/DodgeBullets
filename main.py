@@ -58,13 +58,13 @@ def update():
     for id in delids:
         del bullets[id]
 
-
+    global collisions
     #check for collisions
-    for bullet in bullets.values():
-        for player in players.values():
-            if player.pos.distance(bullet.pos) < player_radius and player.id != bullet.owner.id and player.id != id_main_player:
-                collisions += 1
-                print("Collisions: " + str(collisions))
+    for bullet in bullets.values():   
+        player = players[id_main_player]
+        if player.pos.distance(bullet.pos) < player_radius + bullet_radius:
+            collisions += 1
+            print("Collisions: " + str(collisions))
                 
 
     
