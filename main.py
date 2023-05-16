@@ -61,6 +61,7 @@ def update():
         for bullet in bullet.values():
             if player.pos.dist(bullet.pos) < player_radius + bullet_radius:
                 print("collision")
+                afadsf
     
 def draw():
     update()
