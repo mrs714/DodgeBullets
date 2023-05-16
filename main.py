@@ -62,7 +62,7 @@ def update():
         for player in players.values():
             if player.pos.distance(bullet.pos) < player_radius:
                 collisions += 1
-                print("collision")
+                print("Collisions: " + str(collisions))
                 
     
 def draw():
