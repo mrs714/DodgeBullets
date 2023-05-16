@@ -9,7 +9,7 @@ def calcCost(player, tryLine, near, lines):
         alti = tryLine.closestAltitude(line)
         if alti > 0:
             dist = tryLine.horizontalDistance(line, alti)      
-            if dist < player_radius + bullet_radius+7:
+            if dist < player_radius + bullet_radius+2:
                 cost -= alti
     return cost
 
@@ -48,7 +48,6 @@ def tryMove(player, dir, bList):
         angle = rad(a)
         ret = tryAngle(player, dir, angle, costs, near, lines)
         if ret != None:
-            print("ez")
             return ret
 
     #middle
@@ -57,7 +56,6 @@ def tryMove(player, dir, bList):
     costNoMove = calcCost(player, tryLine, near, lines)
     if costNoMove == 0:
         tryDir.z = 0
-        print("ez")
         return tryDir
     
     #second part
@@ -65,7 +63,6 @@ def tryMove(player, dir, bList):
         angle = rad(a)
         ret = tryAngle(player, dir, angle, costs, near, lines)
         if ret != None:
-            print("ez")
             return ret
     
     
@@ -76,7 +73,6 @@ def tryMove(player, dir, bList):
         if c < minCost:
             minCost = c
             minDir = d
-    print("not ez: ", minCost)
     minDir.z = 0
     return minDir
 
