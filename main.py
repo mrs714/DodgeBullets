@@ -60,7 +60,7 @@ def update():
     #check for collisions
     for bullet in bullets.values():
         for player in players.values():
-            if player.pos.distance(bullet.pos) < player_radius:
+            if player.pos.distance(bullet.pos) < player_radius and player.id != bullet.owner.id and player.id != id_main_player:
                 collisions += 1
                 print("Collisions: " + str(collisions))
                 
