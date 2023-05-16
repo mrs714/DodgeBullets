@@ -11,6 +11,7 @@ collisions = 0
 bullets = {}
 players = {}
 
+
 player1 = Player(Vec(200, 200))
 player2 = Player(Vec(800, 800))
 player3 = Player(Vec(200, 800))
@@ -57,6 +58,7 @@ def update():
     for id in delids:
         del bullets[id]
 
+
     #check for collisions
     for bullet in bullets.values():
         for player in players.values():
@@ -64,6 +66,7 @@ def update():
                 collisions += 1
                 print("Collisions: " + str(collisions))
                 
+
     
 def draw():
     update()
