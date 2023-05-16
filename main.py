@@ -10,6 +10,7 @@ tickCounter = 0
 bullets = {}
 players = {}
 
+
 player1 = Player(Vec(200, 200))
 player2 = Player(Vec(800, 800))
 player3 = Player(Vec(200, 800))
