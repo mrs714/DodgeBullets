@@ -14,14 +14,18 @@ player1 = Player(Vec(200, 200))
 player2 = Player(Vec(800, 800))
 player3 = Player(Vec(200, 800))
 player4 = Player(Vec(800, 200))
+#player5 = Player(Vec(200, 500))
+#player6 = Player(Vec(800, 500))
 
-player0 = Player(Vec(350, 150))
+player0 = Player(Vec(350, 350))
 
 players[player0.id] = player0
 players[player1.id] = player1
 players[player2.id] = player2
 players[player3.id] = player3
 players[player4.id] = player4
+#players[player5.id] = player5
+#players[player6.id] = player6
 
 id_main_player = player0.id
 
@@ -33,6 +37,7 @@ pygame.display.set_caption("The game")
 clock = pygame.time.Clock()
 
 dirs = [Vec(1, 0), Vec(1, 1), Vec(0, 1), Vec(-1, 1), Vec(-1, 0), Vec(-1, -1), Vec(0, -1), Vec(1, -1)]
+positions = [Vec(350, 350), Vec(350, 650), Vec(650, 650), Vec(650, 350)]
 
 def update():
     for player in players.values():
@@ -50,6 +55,7 @@ def update():
         bullet.move(bullet_speed)
     for id in delids:
         del bullets[id]
+
     
 def draw():
     update()
