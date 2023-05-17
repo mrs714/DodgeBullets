@@ -37,7 +37,7 @@ def calcCost(player, tryLine, near, lines):
         alti = tryLine.closestAltitude(line)
         if alti > 0:
             dist = tryLine.horizontalDistance(line, alti)      
-            if dist < player_radius + bullet_radius+2:
+            if dist < player_radius + bullet_radius + 5:
                 cost -= alti
     return cost
 
