@@ -21,6 +21,7 @@ class Line3d:
         v1, v2, v3 = self.vector()
         u1, u2, u3 = other.vector()
 
+        # k when derivative of distance is 0 -> min distance
         return (2*(u1/u3 - v1/v3)*(p1 - q1 + (q3*u1)/u3 - (p3*v1)/v3) + 2*(u2/u3 - v2/v3)*(p2 - q2 + (q3*u2)/u3 - (p3*v2)/v3))/(2*(u1/u3 - v1/v3)**2 + 2*(u2/u3 - v2/v3)**2)
     
     def horizontalDistance(self, other, k = None):
@@ -32,6 +33,7 @@ class Line3d:
         v1, v2, v3 = self.vector()
         u1, u2, u3 = other.vector()
 
+        # distance of the intersections with the plane z = k
         return sqrt((p1+(v1/v3)*(k-p3)-q1-(u1/u3)*(k-q3))**2+(p2+(v2/v3)*(k-p3)-q2-(u2/u3)*(k-q3))**2)
     
     def __str__(self):
