@@ -37,7 +37,7 @@ def calcCost(player, tryLine, near, lines):
         alti = tryLine.closestAltitude(line)
         if alti > 0:
             dist = tryLine.horizontalDistance(line, alti)      
-            if dist < player_radius + bullet_radius + 5:
+            if dist < player_radius + bullet_radius + avoidance_distance:
                 cost -= alti
     return cost
 
@@ -69,7 +69,7 @@ def tryMove(player, dir, bList):
         lineDirection = Vec(ent.dir.x, ent.dir.y)
         lineDirection.normalize()
         lineDirection = lineDirection*bullet_speed
-        lineDirection.z = ticksPS
+        lineDirection.__z = ticksPS
         lines.append(Line3d(ent.pos, lineDirection))
     
     #xdtryLine = Line3d(player.pos, Vec(0, 0, 1))
@@ -89,7 +89,7 @@ def tryMove(player, dir, bList):
     tryLine = Line3d(player.pos, tryDir)
     costNoMove = calcCost(player, tryLine, near, lines)
     if costNoMove == 0:
-        tryDir.z = 0
+        tryDir.__z = 0
         return tryDir, True
     
     #second part

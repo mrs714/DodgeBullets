@@ -54,4 +54,4 @@ class Entity:
         if i == None:
             return False
         self.dir.normalize()
-        return (i - self.pos).x / self.dir.x >= -radius if self.dir.x != 0 else i.y >= -radius
+        return (i - self.pos).__x / self.dir.__x >= -radius if self.dir.__x != 0 else i.__y >= -radius
