@@ -22,21 +22,30 @@ class Vec:
         return self.__x, self.__y, self.__z
     
     # basic operations
+    def set_z(self, z):
+        self.__z = z
+    
+    def flatten(self):
+        self.__z = 0
+
+    def flattened(self):
+        return Vec(self.__x, self.__y, 0)
+
     def __add__(self, other):
-        return Vec(self.__x + other.x(), self.__y + other.y(), self.__z + other.z())
+        return Vec(self.__x + other.__x, self.__y + other.__y, self.__z + other.__z)
     
     def __sub__(self, other):
-        return Vec(self.__x - other.x(), self.__y - other.y(), self.__z - other.z())
+        return Vec(self.__x - other.__x, self.__y - other.__y, self.__z - other.__z)
     
     def __mul__(self, val):
         return Vec(self.__x*val, self.__y*val, self.__z*val)
     
     # complex operations
     def dot(self, other):
-        return self.__x*other.x() + self.__y*other.y() + self.__z*other.z()
+        return self.__x*other.__x + self.__y*other.__y + self.__z*other.__z
     
     def distance(self, other):
-        return sqrt((self.__x - other.x())**2 + (self.__y - other.y())**2 + (self.__z - other.z())**2)
+        return sqrt((self.__x - other.__x)**2 + (self.__y - other.__y)**2 + (self.__z - other.__z)**2)
     
     def invert(self):
         self.__x = -self.__x
@@ -54,7 +63,7 @@ class Vec:
         self.__y /= norm
         self.__z /= norm
     
-    def noramlized(self):
+    def normalized(self):
         norm = self.norm()
         if norm == 0:
             return Vec(0, 0, 0)
@@ -69,8 +78,11 @@ class Vec:
     def rotated2d(self, angle):
         return Vec(self.__x*cos(angle) - self.__y*sin(angle), self.__x*sin(angle) + self.__y*cos(angle), self.__z)
     
-    def outside2dSquare(self, radius, min_size, max_size):
-        return self.__x < min_size + radius or self.__x > max_size - radius or self.__y < min_size + radius or self.__y > max_size - radius
+    def outside2d(self, radius, min_x, max_x, min_y, max_y):
+        return self.__x < min_x + radius or self.__x > max_x - radius or self.__y < min_y + radius or self.__y > max_y - radius
+    
+    def copy(self):
+        return Vec(self.__x, self.__y, self.__z)
     
     def __str__(self):
         return "x: " + str(self.__x) + " y: " + str(self.__y) + " z: " + str(self.__z)

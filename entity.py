@@ -1,57 +1,45 @@
 from vec import Vec
-from consts import *
+from values import *
 
 class Entity:
 
     id_counter = -1
 
-    def __init__(self, pos):
-        self.id = self.generateId()
-        self.pos = pos
-        self.dir = Vec(0, 0)
+    def __init__(self, x, y):
+        self.__id = self.__generateId()
+        self.__position__ = Vec(x, y)
+        self.__direction__ = Vec(0, 0)
     
-    def generateId(self):
+    def __generateId(self):
         Entity.id_counter += 1
         return Entity.id_counter
+    
+    # Getters
+    def id(self):
+        return self.__id
+    
+    def pos(self):
+        return self.__position__.copy()
 
+    def dir(self):
+        return self.__direction__.copy()
+
+    # Operations
     def __eq__(self, other):
-        return self.id == other.id
+        return self.__id == other.__id
     
     def move(self, speed):
-        self.dir.normalize()
-        self.pos += self.dir * (speed / ticksPS)
+        self.__direction__.normalize()
+        self.__position__ += (self.__direction__ * (speed / ticksPS))
 
-    def intersection(self, other):
-
-        A = self.pos
-        B = self.pos + self.dir
-        C = other.pos
-        D = other.pos + other.dir
-
-        # Line AB represented as a1x + b1y = c1
-        a1 = B.y - A.y
-        b1 = A.x - B.x
-        c1 = a1*(A.x) + b1*(A.y)
+    def distance(self, other):
+        return self.__position__.distance(other.__position__)
     
-        # Line CD represented as a2x + b2y = c2
-        a2 = D.y - C.y
-        b2 = C.x - D.x
-        c2 = a2*(C.x) + b2*(C.y)
+    def direction_to(self, other):
+        return other.__position__ - self.__position__
     
-        determinant = a1*b2 - a2*b1
+    def outside_map(self, radius):
+        return self.__position__.outside2d(radius, 0, map_size_x, 0, map_size_y)
     
-        if (determinant == 0):
-            # The lines are parallel. This is simplified
-            # by returning a pair of FLT_MAX
-            return None
-        else:
-            x = (b2*c1 - b1*c2)/determinant
-            y = (a1*c2 - a2*c1)/determinant
-            return Vec(x, y)
-    
-    def mayCollide(self, other, radius):
-        i = self.intersection(other)
-        if i == None:
-            return False
-        self.dir.normalize()
-        return (i - self.pos).__x / self.dir.__x >= -radius if self.dir.__x != 0 else i.__y >= -radius
+    def set_direction(self, d):
+        self.__direction__ = d.copy()

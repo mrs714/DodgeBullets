@@ -1,24 +1,20 @@
 from bullet import Bullet
 from entity import Entity
-from consts import *
+from values import *
 
 class Player(Entity):
 
-    def __init__(self, pos):
-        super().__init__(pos)
-        self.lastShoot = 0
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.__lastShoot = 0
     
-    def shoot(self, dir, bullets, tickCounter):
-        if tickCounter - self.lastShoot < shootCooldown:
-            return
-        b = Bullet(self.pos, self)
-        b.dir = dir
-        bullets[b.id] = b
-        self.lastShoot = tickCounter
+    def shoot(self, dir):
+        if context.tickCounter - self.__lastShoot >= shootCooldown:
+            b = Bullet(self.__position__.x(), self.__position__.y(), self)
+            b.__direction__ = dir
+            self.__lastShoot = context.tickCounter
+            context.bullets[b.id()] = b
+        
     
-    def nearBullets(self, radius, bList):
-        retList = []
-        for b in bList.values():
-            if self.pos.distance(b.pos) <= radius:
-                retList.append(b)
-        return retList
+    def closeBullets(self, radius):
+        return {id: b for id, b in context.bullets.items() if self.distance(b) <= radius}
