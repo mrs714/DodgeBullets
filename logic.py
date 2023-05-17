@@ -115,8 +115,21 @@ def tryMove(player, dir, bList):
 
     return minDir, False
 
+playerPosition = Vec(0, 0)
+previousPlayerPosition = Vec(0, 0)
+
 def shootPlayer(player, targetId, pList, bullets, tickCounter):
+    global playerPosition, previousPlayerPosition
+
     target = pList[targetId]
-    dir = Vec(target.pos.x - player.pos.x, target.pos.y - player.pos.y)
-    player.shoot(dir, bullets, tickCounter)
+    playerPosition = player.pos
+
+    playerDirection = playerPosition - previousPlayerPosition
+    timeToPlayer = playerPosition.distance(target.pos) / bullet_speed
+
+    futurePosition = target.pos + (player_speed * timeToPlayer * playerDirection)
+
+    player.shoot(futurePosition, bullets, tickCounter)
+
+    previousPlayerPosition = playerPosition
 
