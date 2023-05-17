@@ -3,22 +3,24 @@ from vec import Vec
 from line3d import Line3d
 from math import pi, radians as rad
 
-import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 sizeline = map_size/4
 
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
 def plot3d(lines, tline):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+    ax.clear()
     for line in lines:
         line.vector.normalize()
         ax.plot([line.point.x, (line.point + line.vector*sizeline).x], [-line.point.y, -(line.point + line.vector*sizeline).y], [line.point.z, (line.point + line.vector*sizeline).z], color='r')
 
     tline.vector.normalize()
+    tline.vector = tline.vector*0.3
     ax.plot([tline.point.x, (tline.point + tline.vector*sizeline).x], [-tline.point.y, -(tline.point + tline.vector*sizeline).y], [tline.point.z, (tline.point + tline.vector*sizeline).z], color='g')
-    plt.show()
-
+    plt.pause(0.001)
 def plot2d(bullets, player):
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -70,6 +72,9 @@ def tryMove(player, dir, bList):
         lineDirection.z = ticksPS
         lines.append(Line3d(ent.pos, lineDirection))
     
+    #xdtryLine = Line3d(player.pos, Vec(0, 0, 1))
+    #plot3d(lines, xdtryLine)
+
     costs = []
     #first part
     dir.normalize()
@@ -107,9 +112,8 @@ def tryMove(player, dir, bList):
     minDir.normalize()
     minDir = minDir*player_speed
     minDir.z = ticksPS
-    xdtryLine = Line3d(player.pos, minDir)
-    plot3d(lines, xdtryLine)
-    plot2d(near, player)
+    
+    #plot2d(near, player)
     
     minDir.z = 0
 
