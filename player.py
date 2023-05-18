@@ -23,4 +23,5 @@ class Player(Entity):
         return self.__health
     
     def remove_health(self, amount):
-        self.__health -= amount
+        if not playerImmortality:
+            self.__health -= amount

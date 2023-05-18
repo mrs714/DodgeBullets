@@ -66,6 +66,7 @@ def update():
             collisions += 1 #count collision
             player.remove_health(10) #remove health
             if not checkPlayerAlive(player):
+                global run #stop game if player is dead
                 run = False
             print("Collisions: " + str(collisions) + ". Health: " + str(player.get_health()) + ".") #print info
     

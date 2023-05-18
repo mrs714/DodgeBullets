@@ -1,7 +1,7 @@
 from values import *
 from vec import Vec
 from line3d import Line3d
-from math import pi, radians as rad, sqrt
+from math import pi, radians as rad, sqrt, log
 
 import matplotlib.pyplot as plt
 
@@ -58,6 +58,8 @@ def tryDirection(player, tryDir, costs, lines):
 
 def tryMove(player, dir):
     
+    return dir
+
     nearBullets = player.closeBullets(playerViewRadius) 
     lines = set()
     costs = []
@@ -101,9 +103,13 @@ def tryMove(player, dir):
 def shootPlayer(player, targetId):
 
     target = context.players[targetId]
+    distance = player.distance(target)
 
     targetDirection = target.dir().normalized()
-    targetDirection = targetDirection * player_speed #gives correct norm to match player speed
+    if distance > 500:
+        targetDirection = targetDirection * player_speed * log(distance, 80)  #gives correct norm to match player speed
+    else:
+        targetDirection = targetDirection * player_speed
 
     directionToTarget = player.direction_to(target).normalized()
     directionToTarget = directionToTarget * sqrt(bullet_speed**2 - player_speed**2) 
@@ -111,4 +117,3 @@ def shootPlayer(player, targetId):
     direction =  directionToTarget + targetDirection
 
     player.shoot(direction)
-
