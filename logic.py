@@ -104,7 +104,6 @@ def shootPlayer(player, targetId):
     player.shoot(player.direction_to(target))
 """
 
-
 def shootPlayer(player, targetId):
 
     target = context.players[targetId]

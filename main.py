@@ -62,6 +62,7 @@ def update():
         if player.distance(bullet) < player_radius + bullet_radius:
             delids.append(bullet.id()) #delete bullet
             collisions += 1 #count collision
+            player.remove_health(10) #remove health
             print("Collisions: " + str(collisions))
 
 
