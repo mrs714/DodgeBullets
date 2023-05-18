@@ -54,7 +54,6 @@ def update():
     for id in delids:
         del (context.bullets)[id]
 
-
     global collisions
     #check for collisions
     for bullet in context.bullets.values():   
@@ -64,8 +63,6 @@ def update():
             collisions += 1 #count collision
             player.remove_health(10) #remove health
             print("Collisions: " + str(collisions) + ". Health: " + str(player.get_health()) + ".") #print info
-
-
     
 def draw():
     update()
@@ -80,7 +77,6 @@ def draw():
     
     for bullet in context.bullets.values():
         pygame.draw.circle(win, (255, 255, 255), (int(bullet.pos().x()), int(bullet.pos().y())), bullet_radius)
-
 
 run = True
 while run:

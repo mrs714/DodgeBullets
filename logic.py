@@ -98,12 +98,6 @@ def tryMove(player, dir):
     
     return minDir
 
-"""
-def shootPlayer(player, targetId):
-    target = context.players[targetId]
-    player.shoot(player.direction_to(target))
-"""
-
 def shootPlayer(player, targetId):
 
     target = context.players[targetId]
