@@ -14,7 +14,7 @@ player4 = Player(800, 200)
 player5 = Player(200, 500)
 player6 = Player(800, 500)
 
-player0 = Player(350, 350)
+player0 = Player(500, player_radius + 1)
 
 context.players[player0.id()] = player0
 context.players[player1.id()] = player1
@@ -40,7 +40,8 @@ def update():
     for player in context.players.values():
         player.move(player_speed)
         if player.id() == id_main_player:
-            player.set_direction(tryMove(player, dirs[(int(context.tickCounter/40)%8)]))
+            #dirs[(int(context.tickCounter/40)%8)]
+            player.set_direction(tryMove(player, Vec(0, 1)))
         else:
             shootPlayer(player, id_main_player)
     

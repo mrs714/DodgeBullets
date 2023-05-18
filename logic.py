@@ -1,7 +1,7 @@
 from values import *
 from vec import Vec
 from line3d import Line3d
-from math import pi, radians as rad
+from math import pi, radians as rad, sqrt
 
 import matplotlib.pyplot as plt
 
@@ -98,7 +98,23 @@ def tryMove(player, dir):
     
     return minDir
 
+"""
 def shootPlayer(player, targetId):
     target = context.players[targetId]
     player.shoot(player.direction_to(target))
+"""
+
+
+def shootPlayer(player, targetId):
+
+    target = context.players[targetId]
+
+    targetDirection = target.dir().normalized()
+
+    directionToTarget = player.direction_to(target).normalized()
+    directionToTarget = directionToTarget * (sqrt((bullet_speed)**2 + ((1/16) * bullet_speed))) 
+
+    direction = directionToTarget + targetDirection
+
+    player.shoot(direction)
 
