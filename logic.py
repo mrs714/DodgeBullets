@@ -106,10 +106,10 @@ def shootPlayer(player, targetId):
     distance = player.distance(target)
 
     targetDirection = target.dir().normalized()
-    if distance > 500:
+    """if distance > 500:
         targetDirection = targetDirection * player_speed * log(distance, 80)  #gives correct norm to match player speed
-    else:
-        targetDirection = targetDirection * player_speed
+    this works great for long distances""" 
+    targetDirection = targetDirection * player_speed
 
     directionToTarget = player.direction_to(target).normalized()
     directionToTarget = directionToTarget * sqrt(bullet_speed**2 - player_speed**2) 

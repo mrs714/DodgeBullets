@@ -35,6 +35,9 @@ class Entity:
     def distance(self, other):
         return self.__position__.distance(other.__position__)
     
+    def moving_towards(self, other):
+        return self.__direction__.dot(other.__position__ - self.__position__) > 0
+    
     def direction_to(self, other):
         return other.__position__ - self.__position__
     
