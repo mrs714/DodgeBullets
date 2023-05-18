@@ -36,6 +36,9 @@ clock = pygame.time.Clock()
 dirs = [Vec(1, 0), Vec(1, 1), Vec(0, 1), Vec(-1, 1), Vec(-1, 0), Vec(-1, -1), Vec(0, -1), Vec(1, -1)]
 positions = [Vec(350, 350), Vec(350, 650), Vec(650, 650), Vec(650, 350)]
 
+def checkPlayerAlive(player):
+    return player.get_health() > 0
+
 def update():
     for player in context.players.values():
         player.move(player_speed)
@@ -62,6 +65,8 @@ def update():
             delids.append(bullet.id()) #delete bullet
             collisions += 1 #count collision
             player.remove_health(10) #remove health
+            if not checkPlayerAlive(player):
+                run = False
             print("Collisions: " + str(collisions) + ". Health: " + str(player.get_health()) + ".") #print info
     
 def draw():
