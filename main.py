@@ -63,7 +63,7 @@ def update():
             delids.append(bullet.id()) #delete bullet
             collisions += 1 #count collision
             player.remove_health(10) #remove health
-            print("Collisions: " + str(collisions))
+            print("Collisions: " + str(collisions) + ". Health: " + str(player.get_health()) + ".") #print info
 
 
     
