@@ -6,6 +6,7 @@ from logic import tryMove, shootPlayer
 from vec import Vec
 
 collisions = 0
+delids = [] #ids of the objects to be deleted
 
 player1 = Player(200, 200)
 player2 = Player(800, 800)
@@ -47,8 +48,7 @@ def update():
             player.set_direction(tryMove(player, Vec(0, 1)))
         else:
             shootPlayer(player, id_main_player)
-    
-    delids = []
+
     for bullet in context.bullets.values():
         if bullet.outside_map(bullet_radius):
             delids.append(bullet.id())
@@ -62,6 +62,7 @@ def update():
     for bullet in context.bullets.values():   
         player = context.players[id_main_player]
         if player.distance(bullet) < player_radius + bullet_radius:
+            global delids
             delids.append(bullet.id()) #delete bullet
             collisions += 1 #count collision
             player.remove_health(10) #remove health
