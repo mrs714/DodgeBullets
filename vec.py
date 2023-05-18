@@ -22,8 +22,11 @@ class Vec:
         return self.__x, self.__y, self.__z
     
     # basic operations
-    def set_z(self, z):
+    def elevate(self, z):
         self.__z = z
+
+    def elevated(self, z):
+        return Vec(self.__x, self.__y, z)
     
     def flatten(self):
         self.__z = 0

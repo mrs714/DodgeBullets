@@ -36,7 +36,7 @@ def tryAngle(player, dir, angle, costs, lines):
 
         tryDir.normalize()
         tryDir = tryDir*player_speed
-        tryDir.set_z(ticksPS)
+        tryDir.elevate(ticksPS)
 
         td = tryDirection(player, tryDir, costs, lines)
         if td == -1:
@@ -67,10 +67,11 @@ def tryMove(player, dir):
         lineDirection = bllt.dir()
         lineDirection.normalize()
         lineDirection = lineDirection*bullet_speed
-        lineDirection.set_z(ticksPS)
+        lineDirection.elevate(ticksPS)
         lines.add(Line3d(*(bllt.pos().get_coords()), *(lineDirection.get_coords())))
 
-    plot3d(lines, Line3d(*(player.pos().get_coords()), *(dir.get_coords())))
+    direc = dir.normalized()*player_speed
+    plot3d(lines, Line3d(*(player.pos().get_coords()), *(direc.elevated(ticksPS).get_coords())))
 
     dir.normalize()
     for a in range(0, 179, circular_step):
