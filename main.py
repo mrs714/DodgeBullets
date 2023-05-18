@@ -54,15 +54,16 @@ def update():
     for id in delids:
         del (context.bullets)[id]
 
-"""
-        global collisions
-        #check for collisions
-        for bullet in context.bullets.values():   
-            player = context.players[id_main_player]
-            if player.pos.distance(bullet.pos) < player_radius + bullet_radius:
-                collisions += 1
-                print("Collisions: " + str(collisions))
-"""
+
+    global collisions
+    #check for collisions
+    for bullet in context.bullets.values():   
+        player = context.players[id_main_player]
+        if player.distance(bullet) < player_radius + bullet_radius:
+            delids.append(bullet.id()) #delete bullet
+            collisions += 1 #count collision
+            print("Collisions: " + str(collisions))
+
 
     
 def draw():
